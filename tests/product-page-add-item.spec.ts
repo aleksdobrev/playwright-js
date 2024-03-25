@@ -2,5 +2,10 @@ import { expect, test } from "@playwright/test";
 
 test("Product Page Add to Basket", async ({ page }) => {
   await page.goto("http://localhost:2221/");
-  await page.waitForTimeout(1000);
+
+  const addToBasketButton = page.getByRole("button", { name: "Add to Basket" }).first();
+  await addToBasketButton.waitFor();
+  await addToBasketButton.click();
+
+  // await page.pause();
 });
