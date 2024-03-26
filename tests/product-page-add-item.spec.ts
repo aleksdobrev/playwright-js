@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 import exp from "constants";
 
 test("Product Page Add to Basket", async ({ page }) => {
-  await page.goto("http://localhost:2221/");
+  await page.goto("/");
 
   const addToBasketButton = page.locator('[data-qa="product-button"]').first();
   const basketCounter = page.locator('[data-qa="header-basket-count"]');
@@ -16,6 +16,12 @@ test("Product Page Add to Basket", async ({ page }) => {
 
   await expect(addToBasketButton).toHaveText("Remove from Basket");
   await expect(basketCounter).toHaveText("1");
+
+  const checkoutLink = page.getByRole("link", { name: "Checkout" });
+  await checkoutLink.waitFor();
+  await checkoutLink.click();
+
+  await expect(page).toHaveURL("http://localhost:2221/basket");
 
   // await page.pause();
 });
