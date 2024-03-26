@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import exp from "constants";
 
 test("Product Page Add to Basket", async ({ page }) => {
   await page.goto("/");
@@ -22,6 +21,4 @@ test("Product Page Add to Basket", async ({ page }) => {
   await checkoutLink.click();
 
   await expect(page).toHaveURL("http://localhost:2221/basket");
-
-  // await page.pause();
 });
