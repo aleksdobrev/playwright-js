@@ -1,4 +1,4 @@
-import { type Locator, type Page } from "@playwright/test";
+import { type Locator, type Page, expect } from "@playwright/test";
 
 export class ProductsPage {
   readonly page: Page;
@@ -17,7 +17,10 @@ export class ProductsPage {
   }
 
   async addProductToBasket(index: number) {
-    await this.addButtons.nth(index).waitFor();
-    await this.addButtons.nth(index).click();
+    const specificAddButton = this.addButtons.nth(index);
+    await specificAddButton.waitFor();
+    await expect(specificAddButton).toHaveText("Add to Basket");
+    await specificAddButton.click();
+    await expect(specificAddButton).toHaveText("Remove from Basket");
   }
 }
