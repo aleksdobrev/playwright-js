@@ -16,6 +16,9 @@ export class ProductsPage {
     await this.page.goto("/");
   }
 
+  /**
+   * It will click on the "Add to Basket" button with the specified index and inspect that the title had changed.
+   */
   async addProductToBasket(index: number) {
     const specificAddButton = this.addButtons.nth(index);
     await specificAddButton.waitFor();
