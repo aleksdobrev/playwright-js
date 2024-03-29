@@ -16,11 +16,11 @@ export class RegisterPage {
   /**
    * Fill in the sign up form with random data for a new user and click on Register button.
    */
-  async signUpAsNewUser() {
+  async signUpAsNewUser(email, password) {
     await this.emailInput.waitFor();
-    await this.emailInput.fill("pwadv@test.com");
+    await this.emailInput.fill(email);
     await this.passwordInput.waitFor();
-    await this.passwordInput.fill("piperki");
+    await this.passwordInput.fill(password);
     await this.registerButton.waitFor();
     await this.registerButton.click();
   }
