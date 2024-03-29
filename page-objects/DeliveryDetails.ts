@@ -21,6 +21,9 @@ export class DeliveryDetails {
     this.saveAddressButton = page.locator('button[data-qa="save-address-button"]');
   }
 
+  /**
+   * It fills all fields of the Delivery Details form.
+   */
   async fillDetails() {
     await this.firstNameInput.waitFor();
     await this.firstNameInput.fill("Ayrton");
