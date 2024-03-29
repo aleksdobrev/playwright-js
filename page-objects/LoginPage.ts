@@ -9,6 +9,9 @@ export class LoginPage {
     this.moveToSignUpButton = page.locator('[data-qa="go-to-signup-button"]');
   }
 
+  /**
+   * Open Sign Up page from Login Page.
+   */
   async moveToSignUp() {
     await this.moveToSignUpButton.waitFor();
     await this.moveToSignUpButton.click();

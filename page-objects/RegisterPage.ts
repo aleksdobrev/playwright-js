@@ -13,6 +13,9 @@ export class RegisterPage {
     this.registerButton = page.getByRole("button", { name: "Register" });
   }
 
+  /**
+   * Fill in the sign up form with random data for a new user and click on Register button.
+   */
   async signUpAsNewUser() {
     await this.emailInput.waitFor();
     await this.emailInput.fill("pwadv@test.com");
