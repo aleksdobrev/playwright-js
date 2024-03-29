@@ -15,13 +15,17 @@ export class Checkout {
 
   async removeCheapestProduct() {
     await this.basketCards.first().waitFor();
+    const itemsBeforeRemoval = await this.basketCards.count();
     const allPriceTexts = await this.basketItemPrice.allInnerTexts();
-    const allPricesNumbers = await allPriceTexts.map((element) => {
+    const allPricesNumbers = allPriceTexts.map((element) => {
       const withoutDollarSign = element.replace("$", "");
       return parseInt(withoutDollarSign, 10);
     });
-
-    console.warn({ allPriceTexts });
-    console.warn({ allPricesNumbers });
+    const smallestPrice = Math.min(...allPricesNumbers);
+    const smallestPriceIndex = allPricesNumbers.indexOf(smallestPrice);
+    const specificRemoveButton = this.basketItemRemoveButton.nth(smallestPriceIndex);
+    await specificRemoveButton.waitFor();
+    await specificRemoveButton.click();
+    await expect(this.basketCards).toHaveCount(itemsBeforeRemoval - 1);
   }
 }
