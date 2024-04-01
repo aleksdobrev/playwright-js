@@ -24,18 +24,18 @@ export class DeliveryDetails {
   /**
    * It fills all fields of the Delivery Details form.
    */
-  async fillDetails() {
+  async fillDetails(userDetails: any) {
     await this.firstNameInput.waitFor();
-    await this.firstNameInput.fill("Ayrton");
+    await this.firstNameInput.fill(userDetails.firstName);
     await this.lastNameInput.waitFor();
-    await this.lastNameInput.fill("Senna");
+    await this.lastNameInput.fill(userDetails.lastName);
     await this.streetInput.waitFor();
-    await this.streetInput.fill("Casino square");
+    await this.streetInput.fill(userDetails.street);
     await this.postCodeInput.waitFor();
-    await this.postCodeInput.fill("4242");
+    await this.postCodeInput.fill(userDetails.postcode);
     await this.cityInput.waitFor();
-    await this.cityInput.fill("Monte Carlo");
+    await this.cityInput.fill(userDetails.city);
     await this.countryDropdown.waitFor();
-    await this.countryDropdown.selectOption("Monaco");
+    await this.countryDropdown.selectOption(userDetails.country);
   }
 }
