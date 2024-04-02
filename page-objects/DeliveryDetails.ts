@@ -10,6 +10,12 @@ export class DeliveryDetails {
   readonly countryDropdown: Locator;
   readonly saveAddressButton: Locator;
   readonly addressContainer: Locator;
+  readonly savedAddressFirstName: Locator;
+  readonly savedAddressLastName: Locator;
+  readonly savedAddressStreet: Locator;
+  readonly savedAddressPostcode: Locator;
+  readonly savedAddressCity: Locator;
+  readonly savedAddressCountry: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -21,6 +27,12 @@ export class DeliveryDetails {
     this.countryDropdown = page.locator('select[data-qa="country-dropdown"]');
     this.saveAddressButton = page.locator('button[data-qa="save-address-button"]');
     this.addressContainer = page.locator('[data-qa="saved-address-container"]');
+    this.savedAddressFirstName = page.locator('[data-qa="saved-address-firstName"]');
+    this.savedAddressLastName = page.locator('[data-qa="saved-address-lastName"]');
+    this.savedAddressStreet = page.locator('[data-qa="saved-address-street"]');
+    this.savedAddressPostcode = page.locator('[data-qa="saved-address-postcode"]');
+    this.savedAddressCity = page.locator('[data-qa="saved-address-city"]');
+    this.savedAddressCountry = page.locator('[data-qa="saved-address-country"]');
   }
 
   /**
@@ -42,12 +54,27 @@ export class DeliveryDetails {
   }
 
   /**
-   * It will save the address details and check that the address containers count has increased.
+   * It will save the address details and check that the address containers count has increased
+   * and the address details are correctly saved and shown inside the container.
    */
   async saveDetails() {
     const addressContainerCountBeforeSaving = await this.addressContainer.count();
     await this.saveAddressButton.waitFor();
     await this.saveAddressButton.click();
+
     await expect(this.addressContainer).toHaveCount(addressContainerCountBeforeSaving + 1);
+
+    await this.savedAddressFirstName.first().waitFor();
+    expect(await this.savedAddressFirstName.first().innerText()).toBe(await this.firstNameInput.inputValue());
+    await this.savedAddressLastName.first().waitFor();
+    expect(await this.savedAddressLastName.first().innerText()).toBe(await this.lastNameInput.inputValue());
+    await this.savedAddressStreet.first().waitFor();
+    expect(await this.savedAddressStreet.first().innerText()).toBe(await this.streetInput.inputValue());
+    await this.savedAddressPostcode.first().waitFor();
+    expect(await this.savedAddressPostcode.first().innerText()).toBe(await this.postCodeInput.inputValue());
+    await this.savedAddressCity.first().waitFor();
+    expect(await this.savedAddressCity.first().innerText()).toBe(await this.cityInput.inputValue());
+    await this.savedAddressCountry.first().waitFor();
+    expect(await this.savedAddressCountry.first().innerText()).toBe(await this.countryDropdown.inputValue());
   }
 }
