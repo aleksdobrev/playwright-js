@@ -9,6 +9,7 @@ export class DeliveryDetails {
   readonly cityInput: Locator;
   readonly countryDropdown: Locator;
   readonly saveAddressButton: Locator;
+  readonly addressContainer: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,6 +20,7 @@ export class DeliveryDetails {
     this.cityInput = page.locator('[data-qa="delivery-city"]');
     this.countryDropdown = page.locator('select[data-qa="country-dropdown"]');
     this.saveAddressButton = page.locator('button[data-qa="save-address-button"]');
+    this.addressContainer = page.locator('[data-qa="saved-address-container"]');
   }
 
   /**
@@ -37,5 +39,15 @@ export class DeliveryDetails {
     await this.cityInput.fill(userDetails.city);
     await this.countryDropdown.waitFor();
     await this.countryDropdown.selectOption(userDetails.country);
+  }
+
+  /**
+   * It will save the address details and check that the address containers count has increased.
+   */
+  async saveDetails() {
+    const addressContainerCountBeforeSaving = await this.addressContainer.count();
+    await this.saveAddressButton.waitFor();
+    await this.saveAddressButton.click();
+    await expect(this.addressContainer).toHaveCount(addressContainerCountBeforeSaving + 1);
   }
 }

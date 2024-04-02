@@ -28,6 +28,7 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
   await registerPage.signUpAsNewUser(email, password);
   const deliveryDetails = new DeliveryDetails(page);
   await deliveryDetails.fillDetails(userDetails);
+  await deliveryDetails.saveDetails();
 
   // await page.pause();
 });
