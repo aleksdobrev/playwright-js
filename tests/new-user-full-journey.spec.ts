@@ -33,5 +33,6 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
   await deliveryDetails.continueToPayment();
 
   const paymentPage = new PaymentPage(page);
+  await paymentPage.activateDiscount();
   // await page.pause();
 });
