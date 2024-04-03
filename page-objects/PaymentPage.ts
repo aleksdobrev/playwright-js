@@ -15,11 +15,11 @@ export class PaymentPage {
 
   async activateDiscount() {
     await this.discountCode.waitFor();
-    const discountCode = await this.discountCode.innerText();
+    const code = await this.discountCode.innerText();
     await this.discountCodeInput.waitFor();
-    await this.discountCodeInput.fill(discountCode);
+    await this.discountCodeInput.fill(code);
+    await expect(this.discountCodeInput).toHaveValue(code);
     await this.submitDiscountCodeButton.waitFor();
     await this.submitDiscountCodeButton.click();
-    await this.page.pause();
   }
 }
