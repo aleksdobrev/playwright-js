@@ -16,6 +16,7 @@ export class DeliveryDetails {
   readonly savedAddressPostcode: Locator;
   readonly savedAddressCity: Locator;
   readonly savedAddressCountry: Locator;
+  readonly continueToPaymentButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -33,6 +34,7 @@ export class DeliveryDetails {
     this.savedAddressPostcode = page.locator('[data-qa="saved-address-postcode"]');
     this.savedAddressCity = page.locator('[data-qa="saved-address-city"]');
     this.savedAddressCountry = page.locator('[data-qa="saved-address-country"]');
+    this.continueToPaymentButton = page.locator('[data-qa="continue-to-payment-button"]');
   }
 
   /**
@@ -76,5 +78,11 @@ export class DeliveryDetails {
     expect(await this.savedAddressCity.first().innerText()).toBe(await this.cityInput.inputValue());
     await this.savedAddressCountry.first().waitFor();
     expect(await this.savedAddressCountry.first().innerText()).toBe(await this.countryDropdown.inputValue());
+  }
+
+  async continueToPayment() {
+    await this.continueToPaymentButton.waitFor();
+    await this.continueToPaymentButton.click();
+    await expect(this.page).toHaveURL(/\/payment/);
   }
 }
