@@ -4,10 +4,11 @@ import { Navigation } from "../page-objects/Navigation";
 import { Checkout } from "../page-objects/Checkout";
 import { LoginPage } from "../page-objects/LoginPage";
 import { RegisterPage } from "../page-objects/RegisterPage";
-import { v4 as uuidv4 } from "uuid";
 import { DeliveryDetails } from "../page-objects/DeliveryDetails";
-import { deliveryDetails as userDetails } from "../data/deliveryDetails";
 import { PaymentPage } from "../page-objects/PaymentPage";
+import { deliveryDetails as userDetails } from "../data/deliveryDetails";
+import { paymentDetails } from "../data/paymentDetails";
+import { v4 as uuidv4 } from "uuid";
 
 test.only("New user full end-to-end test journey", async ({ page }) => {
   const productsPage = new ProductsPage(page);
@@ -33,5 +34,6 @@ test.only("New user full end-to-end test journey", async ({ page }) => {
   await deliveryDetails.continueToPayment();
   const paymentPage = new PaymentPage(page);
   await paymentPage.activateDiscount();
+  await paymentPage.fillPaymentDetails(paymentDetails);
   // await page.pause();
 });
