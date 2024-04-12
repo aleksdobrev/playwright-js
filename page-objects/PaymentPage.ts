@@ -68,6 +68,5 @@ export class PaymentPage {
     await this.validUntilInput.fill(paymentDetails.validUntil);
     await this.creditCardCvcInput.waitFor();
     await this.creditCardCvcInput.fill(paymentDetails.cvc);
-    // await this.page.pause();
   }
 }
