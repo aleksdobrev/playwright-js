@@ -69,4 +69,10 @@ export class PaymentPage {
     await this.creditCardCvcInput.waitFor();
     await this.creditCardCvcInput.fill(paymentDetails.cvc);
   }
+
+  async completePayment() {
+    await this.payButton.waitFor();
+    await this.payButton.click();
+    await expect(this.page).toHaveURL(/\/thank-you/);
+  }
 }
