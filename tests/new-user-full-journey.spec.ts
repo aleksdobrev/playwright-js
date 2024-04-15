@@ -10,7 +10,7 @@ import { deliveryDetails as userDetails } from "../data/deliveryDetails";
 import { paymentDetails } from "../data/paymentDetails";
 import { v4 as uuidv4 } from "uuid";
 
-test.only("New user full end-to-end test journey", async ({ page }) => {
+test("New user full end-to-end test journey", async ({ page }) => {
   const productsPage = new ProductsPage(page);
   await productsPage.visit();
   await productsPage.sortByCheapest();
