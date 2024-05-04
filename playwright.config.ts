@@ -14,6 +14,7 @@ export default defineConfig({
   testDir: "./tests",
   timeout: 30 * 1000,
   /* Run tests in files in parallel */
+  globalSetup: require.resolve("./auth.setup.ts"),
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -34,15 +35,9 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    { name: "setup", testMatch: /.*\.setup\.ts/ },
     {
       name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-        storageState: "auth.json",
-      },
-
-      dependencies: ["setup"],
+      use: { ...devices["Desktop Chrome"] },
     },
 
     // {
