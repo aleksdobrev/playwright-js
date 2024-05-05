@@ -1,9 +1,9 @@
-import { firefox } from "@playwright/test";
+import { chromium } from "@playwright/test";
 
 const authFile = "auth.json";
 
 export default async () => {
-  const browser = await firefox.launch();
+  const browser = await chromium.launch();
   const context = await browser.newContext();
   const page = await context.newPage();
 
